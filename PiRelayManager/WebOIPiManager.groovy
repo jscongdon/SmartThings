@@ -25,7 +25,7 @@
  */
 definition(
     name: "WebOIPi Manager",
-    namespace: "ibeech",
+    namespace: "Kalltech",
     author: "ibeech",
     description: "Add each Pi Relay as an individual thing.",
     category: "Safety & Security",
@@ -38,14 +38,18 @@ preferences {
 
   section("Raspberry Pi Setup"){
   	input "piIP", "text", "title": "Raspberry Pi IP", multiple: false, required: true
-    input "piPort", "text", "title": "Raspberry Pi Port", multiple: false, required: true
+    input "piPort", "number", "title": "Raspberry Pi Port", multiple: false, required: true
+    input "piPolling", "number", "title": "Polling time for Switchs & Contacts sensors in seconds", multiple: false, required: true
     input "theHub", "hub", title: "On which hub?", multiple: false, required: true
+    input "piUser","text", "title": "User", multiple: false, required: false
+    input "piPsswd","text", "title": "Password", multiple: false, required: false
   }
   
     section("Device 1") {    
 		input "deviceName1", "text", title: "Device Name", required:false	        
         input "deviceType1", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+                "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig1", "text", title: "GPIO# or Device Name", required: false
     }
@@ -53,6 +57,7 @@ preferences {
 		input "deviceName2", "text", title: "Device Name", required:false	        
         input "deviceType2", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+                "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig2", "text", title: "GPIO# or Device Name", required: false
     }  
@@ -60,6 +65,7 @@ preferences {
 		input "deviceName3", "text", title: "Device Name", required:false	        
         input "deviceType3", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+                "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig3", "text", title: "GPIO# or Device Name", required: false
     }      
@@ -67,6 +73,7 @@ preferences {
 		input "deviceName4", "text", title: "Device Name", required:false	        
         input "deviceType4", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+                "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig4", "text", title: "GPIO# or Device Name", required: false
     }          
@@ -74,6 +81,7 @@ preferences {
 		input "deviceName5", "text", title: "Device Name", required:false	        
         input "deviceType5", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+                "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig5", "text", title: "GPIO# or Device Name", required: false
     }    
@@ -81,6 +89,7 @@ preferences {
 		input "deviceName6", "text", title: "Device Name", required:false	        
         input "deviceType6", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+                "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig6", "text", title: "GPIO# or Device Name", required: false
     }    
@@ -88,6 +97,7 @@ preferences {
 		input "deviceName7", "text", title: "Device Name", required:false	        
         input "deviceType7", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+                "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig7", "text", title: "GPIO# or Device Name", required: false
     }   
@@ -95,6 +105,7 @@ preferences {
 		input "deviceName8", "text", title: "Device Name", required:false	        
         input "deviceType8", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+                "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig8", "text", title: "GPIO# or Device Name", required: false
     }        
@@ -102,6 +113,7 @@ preferences {
 		input "deviceName9", "text", title: "Device Name", required:false	        
         input "deviceType9", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+                "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig9", "text", title: "GPIO# or Device Name", required: false
     }        
@@ -109,6 +121,7 @@ preferences {
 		input "deviceName10", "text", title: "Device Name", required:false	        
         input "deviceType10", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+                "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig10", "text", title: "GPIO# or Device Name", required: false
     }  
@@ -167,6 +180,10 @@ def updateVirtualRelay(deviceName, deviceType, deviceConfig) {
         	theDeviceNetworkId = getRelayID(deviceConfig);
             break;
             
+    	case "contact":
+        	theDeviceNetworkId = getContactID(deviceConfig);
+            break;
+            
         case "temperatureSensor":
         	theDeviceNetworkId = getTemperatureID(deviceConfig);
             break;
@@ -178,15 +195,20 @@ def updateVirtualRelay(deviceName, deviceType, deviceConfig) {
     
     if(theDevice){ // The switch already exists
     	log.debug "Found existing device which we will now update"   
-        theDevice.deviceNetworkId = theDeviceNetworkId + "." + deviceConfig
+        theDevice.deviceNetworkId = theDeviceNetworkId //+ "." + deviceConfig
         theDevice.label = deviceName
         theDevice.name = deviceName
         
         if(deviceType == "switch") { // Actions specific for the relay device type
             subscribe(theDevice, "switch", switchChange)
             log.debug "Setting initial state of $deviceName to off"
-            setDeviceState(deviceConfig, "off");
+            setSwitchState(deviceConfig, "off", true);
             theDevice.off();
+        } else if(deviceType == "contact") { // Actions specific for the contact device type
+            subscribe(theDevice, "contact", contactChange)
+            log.debug "Setting initial state of $deviceName to open"
+            setContactState(deviceConfig, "open", true);
+            theDevice.open();
         } else {
         	updateTempratureSensor();
         }
@@ -210,12 +232,22 @@ def setupVirtualRelay(deviceName, deviceType, deviceConfig) {
         switch(deviceType) {
         	case "switch":
             	log.trace "Found a relay switch called $deviceName on GPIO #$deviceConfig"
-				def d = addChildDevice("ibeech", "Virtual Pi Relay", getRelayID(deviceConfig), theHub.id, [label:deviceName, name:deviceName])
+				def d = addChildDevice("Kalltech", "Virtual Pi Relay", getRelayID(deviceConfig), theHub.id, [label:deviceName, name:deviceName])
 	    		subscribe(d, "switch", switchChange)
                 
 	    		log.debug "Setting initial state of $gpioName to off"
-        		setDeviceState(deviceConfig, "off");
+        		setSwitchState(deviceConfig, "off", true);
 	    		d.off();
+            	break;
+                    
+        	case "contact":
+            	log.trace "Found a Contact contact called $deviceName on GPIO #$deviceConfig"
+				def d = addChildDevice("Kalltech", "Virtual Pi Contact", getContactID(deviceConfig), theHub.id, [label:deviceName, name:deviceName])
+	    		subscribe(d, "contact", contactChange)
+                
+	    		log.debug "Setting initial state of $gpioName to open"
+        		setContactState(deviceConfig, "open", true);
+	    		d.open();
             	break;
                     
             case "temperatureSensor":
@@ -231,6 +263,10 @@ def setupVirtualRelay(deviceName, deviceType, deviceConfig) {
 def String getRelayID(deviceConfig) {
 
 	return "piRelay." + settings.piIP + "." + deviceConfig
+}
+def String getContactID(deviceConfig) {
+
+	return "piContact." + settings.piIP + "." + deviceConfig
 }
 def String getTemperatureID(deviceConfig){
     
@@ -278,10 +314,10 @@ def response(evt){
 
 def updateRelayDevice(GPIO, state, childDevices) {
 
-  	def theSwitch = childDevices.find{ d -> d.deviceNetworkId.endsWith(".$GPIO") }  
-    if(theSwitch) { 
-    	log.debug "Updating switch $theSwitch for GPIO $GPIO with value $state" 
-        theSwitch.changeSwitchState(state)
+	def theDevice = childDevices.find{ d -> d.deviceNetworkId.endsWith(".$GPIO") }  
+    if(theDevice) { 
+    	log.debug "Updating $theDevice for GPIO $GPIO with value $state" 
+        theDevice.changeState(state)
     }
 }
 
@@ -289,18 +325,19 @@ def updateTempratureSensor() {
 
 	log.trace "Updating temperature for $state.temperatureZone"
 	
-	executeRequest("/devices/" + state.temperatureZone  + "/sensor/temperature/c", "GET", false, null);
+	executeRequest("/devices/" + state.temperatureZone  + "/sensor/temperature/c", "GET", false, null, true);
     
     runIn(60, updateTempratureSensor);
 }
 
 def updateGPIOState() { 
 
-	log.trace "Updating GPIO map"
+	def stamp = new Date().format('yyyy-M-d hh:mm:ss',location.timeZone)
+	log.trace "Updating GPIO map at " + stamp
 	
-	executeRequest("/*", "GET", false, null);
+	executeRequest("/*", "GET", false, null, true);
     
-    runIn(10, updateGPIOState);
+    runIn(piPolling, updateGPIOState);
 }
 
 def switchChange(evt){
@@ -321,41 +358,86 @@ def switchChange(evt){
     	case "refresh":
         // Refresh this switches button
         log.debug "Refreshing the state of GPIO " + GPIO
-        executeRequest("/*", "GET", false, null)
+        executeRequest("/*", "GET", false, null, true)
         return;        
     }
     
-    setDeviceState(GPIO, state);
+    setSwitchState(GPIO, state, true);
+    
+    return;
+}
+def contactChange(evt){
+
+	log.debug "Contact event!";
+    log.debug evt.value;
+    if(evt.value == "closed" || evt.value == "open") return;    
+	
+    
+    def parts = evt.value.tokenize('.');
+    def deviceId = parts[1];
+    def GPIO = parts[5];
+    def state = parts[6];
+    
+    log.debug state;
+    
+    switch(state){
+    	case "refresh":
+        // Refresh this switches button
+        log.debug "Refreshing the state of GPIO " + GPIO
+        executeRequest("/*", "GET", false, null, true)
+        return;        
+    }
+    
+    setContactState(GPIO, state, false);
     
     return;
 }
 
 
-def setDeviceState(gpio, state) {
-	log.debug "Executing 'setDeviceState'"
+def setSwitchState(gpio, state, PostactualAction) {
+	log.debug "Executing 'setSwitchState'"
      
     // Determine the path to post which will set the switch to the desired state
     def Path = "/GPIO/" + gpio + "/value/";
 	Path += (state == "on") ? "1" : "0";
     
-    executeRequest(Path, "POST", true, gpio);
+    executeRequest(Path, "POST", "OUT", gpio, PostactualAction);
 }
 
-def executeRequest(Path, method, setGPIODirection, gpioPin) {
+def setContactState(gpio, state, PostactualAction) {
+	log.debug "Executing 'setContactState'"
+     
+    // Determine the path to post which will set the switch to the desired state
+    def Path = "/GPIO/" + gpio + "/value/";
+	Path += (state == "on") ? "1" : "0";
+    
+    executeRequest(Path, "POST", "IN", gpio, PostactualAction);
+}
+
+def executeRequest(Path, method, setGPIODirection, gpioPin, PostactualAction) {
 		   
 	log.debug "The " + method + " path is: " + Path;
 	    
     def headers = [:] 
     headers.put("HOST", "$settings.piIP:$settings.piPort")
+    def decoded="$settings.piUser:$settings.piPsswd"
+    def encoded = "Basic "+decoded.bytes.encodeBase64()  
+    headers.put("Authorization",encoded)
     
     try {    	
-        
-        if(setGPIODirection) {
+        if(setGPIODirection == "OUT") {
         	def setDirection = new physicalgraph.device.HubAction(
             	method: "POST",
             	path: "/GPIO/" + gpioPin  + "/function/OUT",
             	headers: headers)
-            
+			log.trace "POSTing OUT"
+        	sendHubCommand(setDirection);
+        } else if(setGPIODirection == "IN") {
+        	def setDirection = new physicalgraph.device.HubAction(
+            	method: "POST",
+            	path: "/GPIO/" + gpioPin  + "/function/IN",
+            	headers: headers)
+			log.trace "POSTing IN"
         	sendHubCommand(setDirection);
         }
         
@@ -363,7 +445,7 @@ def executeRequest(Path, method, setGPIODirection, gpioPin) {
             method: method,
             path: Path,
             headers: headers)
-        
+
         sendHubCommand(actualAction)        
     }
     catch (Exception e) {
