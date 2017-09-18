@@ -15,12 +15,12 @@
  */
  
 metadata {
-	definition (name: "Virtual Pi Relay", namespace: "ibeech", author: "ibeech") {
+	definition (name: "Virtual Pi Relay", namespace: "Kalltech", author: "ibeech") {
 		capability "Switch"
         capability "Refresh"
 		capability "Polling"
         
-        command "changeSwitchState", ["string"]
+        command "changeState", ["string"]
 	}
 
 	simulator {
@@ -76,7 +76,7 @@ def off() {
     sendEvent(name: "switch", value: "off");
 }
 
-def changeSwitchState(newState) {
+def changeState(newState) {
 
 	log.trace "Received update that this switch is now $newState"
 	switch(newState) {
