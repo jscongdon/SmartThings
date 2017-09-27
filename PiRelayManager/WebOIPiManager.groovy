@@ -13,14 +13,14 @@
  *  for the specific language governing permissions and limitations under the License.
  *
  * 	==== INSTRUCTIONS ===
-	1) For UK go to: https://graph-eu01-euwest1.api.smartthings.com
-	2) For US go to: https://graph.api.smartthings.com
-	3) Click 'My SmartApps'
-	4) Click the 'From Code' tab
-	5) Paste in the code from here, into SmartThings
-	6) Click 'Create'
-	7) Click 'Publish -> For Me'
-
+ *	1) For UK go to: https://graph-eu01-euwest1.api.smartthings.com
+ *	2) For US go to: https://graph.api.smartthings.com
+ *	3) Click 'My SmartApps'
+ *	4) Click the 'From Code' tab
+ *	5) Paste in the code from here, into SmartThings
+ *	6) Click 'Create'
+ *	7) Click 'Publish -> For Me'
+ *
  * 
  */
 definition(
@@ -29,9 +29,9 @@ definition(
     author: "ibeech",
     description: "Add each Pi Relay as an individual thing.",
     category: "Safety & Security",
-    iconUrl: "http://download.easyicon.net/png/1179528/64/",
-    iconX2Url: "http://download.easyicon.net/png/1179528/128/",
-    iconX3Url: "http://download.easyicon.net/png/1179528/128/")
+    iconUrl: "https://www.iconfinder.com/icons/395242/download/png/64",
+    iconX2Url: "https://www.iconfinder.com/icons/395242/download/png/128",
+    iconX3Url: "https://www.iconfinder.com/icons/395242/download/png/128")
 
 
 preferences {
@@ -42,13 +42,14 @@ preferences {
     input "piPolling", "number", "title": "Polling time for Switchs & Contacts sensors in seconds", multiple: false, required: true
     input "theHub", "hub", title: "On which hub?", multiple: false, required: true
     input "piUser","text", "title": "User", multiple: false, required: false
-    input "piPsswd","text", "title": "Password", multiple: false, required: false
+    input "piPsswd","password", "title": "Password", multiple: false, required: false
   }
   
     section("Device 1") {    
 		input "deviceName1", "text", title: "Device Name", required:false	        
         input "deviceType1", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+                "switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig1", "text", title: "GPIO# or Device Name", required: false
@@ -57,6 +58,7 @@ preferences {
 		input "deviceName2", "text", title: "Device Name", required:false	        
         input "deviceType2", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+                "switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig2", "text", title: "GPIO# or Device Name", required: false
@@ -65,6 +67,7 @@ preferences {
 		input "deviceName3", "text", title: "Device Name", required:false	        
         input "deviceType3", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+                "switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig3", "text", title: "GPIO# or Device Name", required: false
@@ -73,6 +76,7 @@ preferences {
 		input "deviceName4", "text", title: "Device Name", required:false	        
         input "deviceType4", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+                "switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig4", "text", title: "GPIO# or Device Name", required: false
@@ -81,6 +85,7 @@ preferences {
 		input "deviceName5", "text", title: "Device Name", required:false	        
         input "deviceType5", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+                "switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig5", "text", title: "GPIO# or Device Name", required: false
@@ -89,6 +94,7 @@ preferences {
 		input "deviceName6", "text", title: "Device Name", required:false	        
         input "deviceType6", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+                "switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig6", "text", title: "GPIO# or Device Name", required: false
@@ -97,6 +103,7 @@ preferences {
 		input "deviceName7", "text", title: "Device Name", required:false	        
         input "deviceType7", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+                "switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig7", "text", title: "GPIO# or Device Name", required: false
@@ -105,6 +112,7 @@ preferences {
 		input "deviceName8", "text", title: "Device Name", required:false	        
         input "deviceType8", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+                "switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig8", "text", title: "GPIO# or Device Name", required: false
@@ -113,6 +121,7 @@ preferences {
 		input "deviceName9", "text", title: "Device Name", required:false	        
         input "deviceType9", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+                "switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig9", "text", title: "GPIO# or Device Name", required: false
@@ -121,6 +130,7 @@ preferences {
 		input "deviceName10", "text", title: "Device Name", required:false	        
         input "deviceType10", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+                "switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig10", "text", title: "GPIO# or Device Name", required: false
@@ -179,6 +189,10 @@ def updateVirtualRelay(deviceName, deviceType, deviceConfig) {
     	case "switch":
         	theDeviceNetworkId = getRelayID(deviceConfig);
             break;
+
+        case "switchReversed":
+            theDeviceNetworkId = getRelayID(deviceConfig);
+            break;
             
     	case "contact":
         	theDeviceNetworkId = getContactID(deviceConfig);
@@ -200,6 +214,11 @@ def updateVirtualRelay(deviceName, deviceType, deviceConfig) {
         theDevice.name = deviceName
         
         if(deviceType == "switch") { // Actions specific for the relay device type
+            subscribe(theDevice, "switch", switchChange)
+            log.debug "Setting initial state of $deviceName to off"
+            setSwitchState(deviceConfig, "off", true);
+            theDevice.off();
+        } else if(deviceType == "switchReversed") { // Actions specific for the relay device type
             subscribe(theDevice, "switch", switchChange)
             log.debug "Setting initial state of $deviceName to off"
             setSwitchState(deviceConfig, "off", true);
@@ -233,6 +252,16 @@ def setupVirtualRelay(deviceName, deviceType, deviceConfig) {
         	case "switch":
             	log.trace "Found a relay switch called $deviceName on GPIO #$deviceConfig"
 				def d = addChildDevice("Kalltech", "Virtual Pi Relay", getRelayID(deviceConfig), theHub.id, [label:deviceName, name:deviceName])
+	    		subscribe(d, "switch", switchChange)
+                
+	    		log.debug "Setting initial state of $gpioName to off"
+        		setSwitchState(deviceConfig, "off", true);
+	    		d.off();
+            	break;
+
+        	case "switchReversed":
+            	log.trace "Found a relay switch called $deviceName on GPIO #$deviceConfig"
+				def d = addChildDevice("Kalltech", "Virtual Pi Relay (reversed)", getRelayID(deviceConfig), theHub.id, [label:deviceName, name:deviceName])
 	    		subscribe(d, "switch", switchChange)
                 
 	    		log.debug "Setting initial state of $gpioName to off"
