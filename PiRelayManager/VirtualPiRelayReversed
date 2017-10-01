@@ -67,8 +67,6 @@ def on() {
     
     sendEvent(name: "switch", value: device.deviceNetworkId + ".off");    
     sendEvent(name: "switch", value: "on");
-    pause(1000)
-    sendEvent(name: "switch", value: "off");
 }
 
 def off() {
