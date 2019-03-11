@@ -217,7 +217,10 @@ def updateVirtualRelay(deviceName, deviceType, deviceConfig) {
     	case "switch":
         	theDeviceNetworkId = getRelayID(deviceConfig);
             break;
-            
+	    
+        case "switchReversed":
+            theDeviceNetworkId = getRelayID(deviceConfig);
+            break;            
     	case "contact":
         	theDeviceNetworkId = getContactID(deviceConfig);
             break;
