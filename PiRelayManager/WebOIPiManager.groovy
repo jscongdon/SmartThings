@@ -29,9 +29,9 @@ definition(
     author: "ibeech",
     description: "Add each Pi Relay as an individual thing.",
     category: "Safety & Security",
-    iconUrl: "http://download.easyicon.net/png/1179528/64/",
-    iconX2Url: "http://download.easyicon.net/png/1179528/128/",
-    iconX3Url: "http://download.easyicon.net/png/1179528/128/")
+    iconUrl: "https://cdn1.iconfinder.com/data/icons/system-shade-circles/512/raspberry-64.png",
+    iconX2Url: "https://cdn1.iconfinder.com/data/icons/system-shade-circles/512/raspberry-128.png",
+    iconX3Url: "https://cdn1.iconfinder.com/data/icons/system-shade-circles/512/raspberry-512.png")
 
 
 preferences {
