@@ -15,7 +15,7 @@
  */
  
 metadata {
-	definition (name: "Virtual Pi Relay (reversed)", namespace: "Kalltech", author: "ibeech") {
+	definition (name: "Virtual Pi Relay (reversed)", namespace: "jscongdon", author: "jscongdon") {
 		capability "Switch"
         capability "Refresh"
 		capability "Polling"
@@ -45,15 +45,16 @@ metadata {
 
 // parse events into attributes
 def parse(String description) {
-	log.debug "Virtual siwtch parsing '${description}'"
+	log.debug "Virtual switch parsing '${description}'"
 }
 
 def poll() {
 	log.debug "Executing 'poll'"   
         
         def lastState = device.currentValue("switch")
+        log.debug "Last State: $lastState"
     	sendEvent(name: "switch", value: device.deviceNetworkId + ".refresh")
-        sendEvent(name: "switch", value: lastState);
+        //sendEvent(name: "switch", value: lastState);
 }
 
 def refresh() {
