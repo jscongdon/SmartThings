@@ -65,6 +65,7 @@ preferences {
 		input "deviceName1", "text", title: "Device Name", required:false	        
         input "deviceType1", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+		"switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig1", "text", title: "GPIO# or Device Name", required: false
@@ -73,6 +74,7 @@ preferences {
 		input "deviceName2", "text", title: "Device Name", required:false	        
         input "deviceType2", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+		"switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig2", "text", title: "GPIO# or Device Name", required: false
@@ -81,6 +83,7 @@ preferences {
 		input "deviceName3", "text", title: "Device Name", required:false	        
         input "deviceType3", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+		"switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig3", "text", title: "GPIO# or Device Name", required: false
@@ -89,6 +92,7 @@ preferences {
 		input "deviceName4", "text", title: "Device Name", required:false	        
         input "deviceType4", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+		"switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig4", "text", title: "GPIO# or Device Name", required: false
@@ -97,6 +101,7 @@ preferences {
 		input "deviceName5", "text", title: "Device Name", required:false	        
         input "deviceType5", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+		"switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig5", "text", title: "GPIO# or Device Name", required: false
@@ -105,6 +110,7 @@ preferences {
 		input "deviceName6", "text", title: "Device Name", required:false	        
         input "deviceType6", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+		"switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig6", "text", title: "GPIO# or Device Name", required: false
@@ -113,6 +119,7 @@ preferences {
 		input "deviceName7", "text", title: "Device Name", required:false	        
         input "deviceType7", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+		"switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig7", "text", title: "GPIO# or Device Name", required: false
@@ -121,6 +128,7 @@ preferences {
 		input "deviceName8", "text", title: "Device Name", required:false	        
         input "deviceType8", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+		"switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig8", "text", title: "GPIO# or Device Name", required: false
@@ -129,6 +137,7 @@ preferences {
 		input "deviceName9", "text", title: "Device Name", required:false	        
         input "deviceType9", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+		"switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig9", "text", title: "GPIO# or Device Name", required: false
@@ -137,6 +146,7 @@ preferences {
 		input "deviceName10", "text", title: "Device Name", required:false	        
         input "deviceType10", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
+		"switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig10", "text", title: "GPIO# or Device Name", required: false
