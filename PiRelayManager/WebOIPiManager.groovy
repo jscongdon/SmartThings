@@ -12,15 +12,15 @@
  *  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
  *  for the specific language governing permissions and limitations under the License.
  *
- * 	==== INSTRUCTIONS ===
-	1) For UK go to: https://graph-eu01-euwest1.api.smartthings.com
-	2) For US go to: https://graph.api.smartthings.com
-	3) Click 'My SmartApps'
-	4) Click the 'From Code' tab
-	5) Paste in the code from here, into SmartThings
-	6) Click 'Create'
-	7) Click 'Publish -> For Me'
-
+ *  ==== INSTRUCTIONS ===
+ *  1) For UK go to: https://graph-eu01-euwest1.api.smartthings.com
+ *  2) For US go to: https://graph.api.smartthings.com
+ *  3) Click 'My SmartApps'
+ *  4) Click the 'From Code' tab
+ *  5) Paste in the code from here, into SmartThings
+ *  6) Click 'Create'
+ *  7) Click 'Publish -> For Me'
+ *
  * 
  */
 definition(
@@ -37,13 +37,13 @@ definition(
 preferences {
 
   section("Raspberry Pi Setup"){
-  	input "piIP", "text", "title": "Raspberry Pi IP", multiple: false, required: true
+    input "piIP", "text", "title": "Raspberry Pi IP", multiple: false, required: true
     input "piPort", "number", "title": "Raspberry Pi Port", multiple: false, required: true
     input "piPolling", "number", "title": "Polling time for Switchs & Contacts sensors in seconds", multiple: false, required: true
     input "theHub", "hub", title: "On which hub?", multiple: false, required: true
     input "piUser","text", "title": "User", multiple: false, required: false
-    input "piPsswd","text", "title": "Password", multiple: false, required: false
-      input (
+    input "piPsswd","password", "title": "Password", multiple: false, required: false
+    input (
           name: "configLoggingLevelIDE",
           title: "IDE Live Logging Level:\nMessages with this level and higher will be logged to the IDE.",
           type: "enum",
@@ -62,98 +62,109 @@ preferences {
   }
   
     section("Device 1") {    
-		input "deviceName1", "text", title: "Device Name", required:false	        
+        input "deviceName1", "text", title: "Device Name", required:false           
         input "deviceType1", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
-		"switchReversed":"Relay Switch Reversed",
+                "switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
+                "contactGarage":"Garage Door Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig1", "text", title: "GPIO# or Device Name", required: false
     }
     section("Device 2") {    
-		input "deviceName2", "text", title: "Device Name", required:false	        
+        input "deviceName2", "text", title: "Device Name", required:false           
         input "deviceType2", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
-		"switchReversed":"Relay Switch Reversed",
+                "switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
+                "contactGarage":"Garage Door Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig2", "text", title: "GPIO# or Device Name", required: false
     }  
     section("Device 3") {    
-		input "deviceName3", "text", title: "Device Name", required:false	        
+        input "deviceName3", "text", title: "Device Name", required:false           
         input "deviceType3", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
-		"switchReversed":"Relay Switch Reversed",
+                "switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
+                "contactGarage":"Garage Door Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig3", "text", title: "GPIO# or Device Name", required: false
     }      
     section("Device 4") {    
-		input "deviceName4", "text", title: "Device Name", required:false	        
+        input "deviceName4", "text", title: "Device Name", required:false           
         input "deviceType4", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
-		"switchReversed":"Relay Switch Reversed",
+                "switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
+                "contactGarage":"Garage Door Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig4", "text", title: "GPIO# or Device Name", required: false
     }          
     section("Device 5") {    
-		input "deviceName5", "text", title: "Device Name", required:false	        
+        input "deviceName5", "text", title: "Device Name", required:false           
         input "deviceType5", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
-		"switchReversed":"Relay Switch Reversed",
+                "switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
+                "contactGarage":"Garage Door Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig5", "text", title: "GPIO# or Device Name", required: false
     }    
     section("Device 6") {    
-		input "deviceName6", "text", title: "Device Name", required:false	        
+        input "deviceName6", "text", title: "Device Name", required:false           
         input "deviceType6", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
-		"switchReversed":"Relay Switch Reversed",
+                "switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
+                "contactGarage":"Garage Door Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig6", "text", title: "GPIO# or Device Name", required: false
     }    
     section("Device 7") {    
-		input "deviceName7", "text", title: "Device Name", required:false	        
+        input "deviceName7", "text", title: "Device Name", required:false           
         input "deviceType7", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
-		"switchReversed":"Relay Switch Reversed",
+                "switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
+                "contactGarage":"Garage Door Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig7", "text", title: "GPIO# or Device Name", required: false
     }   
     section("Device 8") {    
-		input "deviceName8", "text", title: "Device Name", required:false	        
+        input "deviceName8", "text", title: "Device Name", required:false           
         input "deviceType8", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
-		"switchReversed":"Relay Switch Reversed",
+                "switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
+                "contactGarage":"Garage Door Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig8", "text", title: "GPIO# or Device Name", required: false
     }        
     section("Device 9") {    
-		input "deviceName9", "text", title: "Device Name", required:false	        
+        input "deviceName9", "text", title: "Device Name", required:false           
         input "deviceType9", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
-		"switchReversed":"Relay Switch Reversed",
+                "switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
+                "contactGarage":"Garage Door Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig9", "text", title: "GPIO# or Device Name", required: false
     }        
     section("Device 10") {    
-		input "deviceName10", "text", title: "Device Name", required:false	        
+        input "deviceName10", "text", title: "Device Name", required:false          
         input "deviceType10", "enum", title: "Device Type", required: false, options: [                
                 "switch":"Relay Switch",
-		"switchReversed":"Relay Switch Reversed",
+                "switchReversed":"Relay Switch Reversed",
                 "contact":"Contact Sensor",
+                "contactGarage":"Garage Door Sensor",
                 "temperatureSensor":"Temperature Sensor"]
         input "deviceConfig10", "text", title: "GPIO# or Device Name", required: false
     }  
 }
 
 def installed() {
+  //log.debug "Installed with settings: ${settings}"
   logger("Installed with settings: ${settings}","debug")
 
   initialize()
@@ -162,14 +173,14 @@ def installed() {
 def initialize() {
     // Update internal state:
     state.loggingLevelIDE = (settings.configLoggingLevelIDE) ? settings.configLoggingLevelIDE.toInteger() : 5
-
+    
     subscribe(location, null, response, [filterEvents:false])
     
     unschedule()
     runEvery1Minute(Schedule_updateGPIOState)
     Schedule_updateGPIOState()
    
-	setupVirtualRelay(deviceName1, deviceType1, deviceConfig1);
+    setupVirtualRelay(deviceName1, deviceType1, deviceConfig1);
     setupVirtualRelay(deviceName2, deviceType2, deviceConfig2);
     setupVirtualRelay(deviceName3, deviceType3, deviceConfig3);
     setupVirtualRelay(deviceName4, deviceType4, deviceConfig4);
@@ -182,12 +193,14 @@ def initialize() {
 }
 
 def updated() {
-log.info "loggingLevelIDE:$state.loggingLevelIDE"
+    //log.debug "Updated with settings: ${settings}"
+    log.info "loggingLevelIDE:$state.loggingLevelIDE"
     // Update internal state:
     state.loggingLevelIDE = (settings.configLoggingLevelIDE) ? settings.configLoggingLevelIDE.toInteger() : 5
-log.info "loggingLevelIDE:$state.loggingLevelIDE"
-    
-	logger("Updated with settings: ${settings}","debug")
+    log.info "loggingLevelIDE:$state.loggingLevelIDE"
+
+    //updateGPIOState();
+  	logger("Updated with settings: ${settings}","debug")
     unschedule()
     runEvery1Minute(Schedule_updateGPIOState)
     Schedule_updateGPIOState()
@@ -214,99 +227,154 @@ def updateVirtualRelay(deviceName, deviceType, deviceConfig) {
     
     def theDeviceNetworkId = "";
     switch(deviceType) {
-    	case "switch":
-        	theDeviceNetworkId = getRelayID(deviceConfig);
+        case "switch":
+            theDeviceNetworkId = getRelayID(deviceConfig);
             break;
-	    
+
         case "switchReversed":
             theDeviceNetworkId = getRelayID(deviceConfig);
-            break;            
-    	case "contact":
-        	theDeviceNetworkId = getContactID(deviceConfig);
             break;
             
+        case "contact":
+            theDeviceNetworkId = getContactID(deviceConfig);
+            break;
+            
+        case "contactGarage":
+        	theDeviceNetworkId = getContactID(deviceConfig);
+            break
+            
         case "temperatureSensor":
-        	theDeviceNetworkId = getTemperatureID(deviceConfig);
+            theDeviceNetworkId = getTemperatureID(deviceConfig);
             break;
     }
     
+    //log.trace "Searching for: $theDeviceNetworkId";
     logger("Searching for: $theDeviceNetworkId","trace")
     
-  	def theDevice = getChildDevices().find{ d -> d.deviceNetworkId.startsWith(theDeviceNetworkId) }  
+    def theDevice = getChildDevices().find{ d -> d.deviceNetworkId.startsWith(theDeviceNetworkId) }  
     
     if(theDevice){ // The switch already exists
-		logger("Found existing device which we will now update"   ,"debug")
+        //log.debug "Found existing device which we will now update"
+        logger("Found existing device which we will now update"   ,"debug")
         theDevice.deviceNetworkId = theDeviceNetworkId //+ "." + deviceConfig
         theDevice.label = deviceName
         theDevice.name = deviceName
         
         if(deviceType == "switch") { // Actions specific for the relay device type
             subscribe(theDevice, "switch", switchChange)
-			logger("Setting initial state of $deviceName to off","debug")
+            //log.debug "Setting initial state of $deviceName to off"
+            logger("Setting initial state of $deviceName to off","debug")
+            setSwitchState(deviceConfig, "off", true);
+            theDevice.off();
+        } else if(deviceType == "switchReversed") { // Actions specific for the relay device type
+            subscribe(theDevice, "switch", switchChange)
+            //log.debug "Setting initial state of $deviceName to off"
+            logger("Setting initial state of $deviceName to off","debug")
             setSwitchState(deviceConfig, "off", true);
             theDevice.off();
         } else if(deviceType == "contact") { // Actions specific for the contact device type
             subscribe(theDevice, "contact", contactChange)
-			logger("Setting initial state of $deviceName to open","debug")
+            //log.debug "Setting initial state of $deviceName to open"
+            logger("Setting initial state of $deviceName to open","debug")
+            setContactState(deviceConfig, "open", true);
+            theDevice.open();
+        } else if(deviceType == "contactGarage") { // Actions specific for the garage contact device type
+            subscribe(theDevice, "contact", contactChange)
+            //log.debug "Setting initial state of $deviceName to open"
+            logger("Setting initial state of $deviceName to open","debug")
             setContactState(deviceConfig, "open", true);
             theDevice.open();
         } else {
-        	updateTempratureSensor();
+            updateTempratureSensor();
         }
         
     } else { // The switch does not exist
-    	if(deviceName){ // The user filled in data about this switch
-			logger("This device does not exist, creating a new one now","debug")
-        	/*setupVirtualRelay(deviceId, gpioName);*/
+        if(deviceName){ // The user filled in data about this switch
+            //log.debug "This device does not exist, creating a new one now"
+            logger("This device does not exist, creating a new one now","debug")
+            /*setupVirtualRelay(deviceId, gpioName);*/
             setupVirtualRelay(deviceName, deviceType, deviceConfig);
-       	}
+        }
     }
 
 }
 def setupVirtualRelay(deviceName, deviceType, deviceConfig) {
 
-	if(deviceName){
-		logger(deviceName,"debug")
+    if(deviceName){
+        //log.debug deviceName
+        //log.debug deviceType
+        //log.debug deviceConfig
+        logger(deviceName,"debug")
 		logger(deviceType,"debug")
 		logger(deviceConfig,"debug")
         
         switch(deviceType) {
-        	case "switch":
-				logger("Found a relay switch called $deviceName on GPIO #$deviceConfig","trace")
-				def d = addChildDevice("Kalltech", "Virtual Pi Relay", getRelayID(deviceConfig), theHub.id, [label:deviceName, name:deviceName])
-	    		subscribe(d, "switch", switchChange)
-                logger("Setting initial state of $gpioName to off","debug")
-        		setSwitchState(deviceConfig, "off", true);
-	    		d.off();
-            	break;
-                    
-        	case "contact":
-                logger("Found a Contact contact called $deviceName on GPIO #$deviceConfig","trace")
-				def d = addChildDevice("Kalltech", "Virtual Pi Contact", getContactID(deviceConfig), theHub.id, [label:deviceName, name:deviceName])
-	    		subscribe(d, "contact", contactChange)
+            case "switch":
+                //log.trace "Found a relay switch called $deviceName on GPIO #$deviceConfig"
+                logger("Found a relay switch called $deviceName on GPIO #$deviceConfig","trace")
+                def d = addChildDevice("Kalltech", "Virtual Pi Relay", getRelayID(deviceConfig), theHub.id, [label:deviceName, name:deviceName])
+                subscribe(d, "switch", switchChange)
                 
+                //log.debug "Setting initial state of $gpioName to off"
+                logger("Setting initial state of $gpioName to off","debug")
+                setSwitchState(deviceConfig, "off", true);
+                d.off();
+                break;
+
+            case "switchReversed":
+                //log.trace "Found a relay switch called $deviceName on GPIO #$deviceConfig"
+                logger("Found a relay switch called $deviceName on GPIO #$deviceConfig","trace")
+                def d = addChildDevice("Kalltech", "Virtual Pi Relay (reversed)", getRelayID(deviceConfig), theHub.id, [label:deviceName, name:deviceName])
+                subscribe(d, "switch", switchChange)
+                
+                //log.debug "Setting initial state of $gpioName to off"
+                logger("Setting initial state of $gpioName to off","debug")
+                setSwitchState(deviceConfig, "off", true);
+                d.off();
+                break;
+                    
+            case "contact":
+                //log.trace "Found a Contact contact called $deviceName on GPIO #$deviceConfig"
+                logger("Found a Contact contact called $deviceName on GPIO #$deviceConfig","trace")
+                def d = addChildDevice("Kalltech", "Virtual Pi Contact", getContactID(deviceConfig), theHub.id, [label:deviceName, name:deviceName])
+                subscribe(d, "contact", contactChange)
+                
+                //log.debug "Setting initial state of $gpioName to open"
                 logger("Setting initial state of $gpioName to open","debug")
-        		setContactState(deviceConfig, "open", true);
-	    		d.open();
-            	break;
+                setContactState(deviceConfig, "open", true);
+                d.open();
+                break;
+                    
+            case "contactGarage":
+                //log.trace "Found a Contact contact called $deviceName on GPIO #$deviceConfig"
+                logger("Found a Contact contact called $deviceName on GPIO #$deviceConfig","trace")
+                def d = addChildDevice("Kalltech", "Virtual Pi Garage Door Contact", getContactID(deviceConfig), theHub.id, [label:deviceName, name:deviceName])
+                subscribe(d, "contact", contactChange)
+                
+                //log.debug "Setting initial state of $gpioName to open"
+                logger("Setting initial state of $gpioName to open","debug")
+                setContactState(deviceConfig, "open", true);
+                d.open();
+                break;
                     
             case "temperatureSensor":
+                //log.trace "Found a temperature sensor called $deviceName on $deviceConfig"
                 logger("Found a temperature sensor called $deviceName on $deviceConfig","trace")
                 def d = addChildDevice("ibeech", "Virtual Pi Temperature", getTemperatureID(deviceConfig), theHub.id, [label:deviceName, name:deviceName])                 
                 state.temperatureZone = deviceConfig
                 updateTempratureSensor();
-            	break;
-        }	    
-	}
+                break;
+        }       
+    }
 }
 
 def String getRelayID(deviceConfig) {
 
-	return "piRelay." + settings.piIP + "." + deviceConfig
+    return "piRelay." + settings.piIP + "." + deviceConfig
 }
 def String getContactID(deviceConfig) {
 
-	return "piContact." + settings.piIP + "." + deviceConfig
+    return "piContact." + settings.piIP + "." + deviceConfig
 }
 def String getTemperatureID(deviceConfig){
     
@@ -317,55 +385,62 @@ def uninstalled() {
   unsubscribe()
   def delete = getChildDevices()
     delete.each {
-    	unsubscribe(it)
-		logger("about to delete device","trace")
+        unsubscribe(it)
+        //log.trace "about to delete device"
+        logger("about to delete device","trace")
         deleteChildDevice(it.deviceNetworkId)
     }   
 }
 
 def response(evt){
-    logger("response","debug")
-    def msg = parseLanMessage(evt.description);
+ logger("response","debug")
+ def msg = parseLanMessage(evt.description);
     if(msg && msg.body){
-
-            // This is the GPIO headder state message
+    
+        // This is the GPIO headder state message
         def children = getChildDevices(false)
         if(msg.json) {
-                msg.json.GPIO.each { item ->
-                    updateRelayDevice(item.key, item.value.value, children);
-                }
-                logger("Finished Getting GPIO State","trace")
+           msg.json.GPIO.each { item ->
+                updateRelayDevice(item.key, item.value.value, children);
+            }
+            
+            log.trace "Finished Getting GPIO State"
         }
-
+        
         def tempContent = msg.body.tokenize('.')
         if(tempContent.size() == 2 && tempContent[0].isNumber() && tempContent[1].isNumber() ) {
+            
             // Got temperature response            
             def networkId = getTemperatureID(state.temperatureZone);
-            def theDevice = getChildDevices().find{ d -> d.deviceNetworkId.startsWith(networkId) }              
+            def theDevice = getChildDevices().find{ d -> d.deviceNetworkId.startsWith(networkId) }  
+            
             if(theDevice) {
                 theDevice.setTemperature(msg.body, state.temperatureZone);
+                //log.trace "$theDevice set to $msg.body"
                 logger("$theDevice set to $msg.body","trace")
             }
-		}
-	}
+        }
+    }
 }
 
 def updateRelayDevice(GPIO, state, childDevices) {
 
-	def theDevice = childDevices.find{ d -> d.deviceNetworkId.endsWith(".$GPIO") }  
+    def theDevice = childDevices.find{ d -> d.deviceNetworkId.endsWith(".$GPIO") }  
     if(theDevice) { 
-		logger("Updating $theDevice for GPIO $GPIO with value $state","debug")
+        //log.debug "Updating $theDevice for GPIO $GPIO with value $state" 
+        logger("Updating $theDevice for GPIO $GPIO with value $state","debug")
         theDevice.changeState(state)
     }
 }
 
 def updateTempratureSensor() {
 
-	logger("Updating temperature for $state.temperatureZone","info")
-	
-	executeRequest("/devices/" + state.temperatureZone  + "/sensor/temperature/c", "GET", false, null, true);
+    //log.trace "Updating temperature for $state.temperatureZone"
+    logger("Updating temperature for $state.temperatureZone","info")
     
-    //runIn(60, updateTempratureSensor);
+    executeRequest("/devices/" + state.temperatureZone  + "/sensor/temperature/c", "GET", false, null, true);
+    
+    runIn(60, updateTempratureSensor);
 }
 
 def Schedule_updateGPIOState() {
@@ -378,34 +453,41 @@ def Schedule_updateGPIOState() {
 	}
     updateTempratureSensor()
 }
+
 def updateGPIOState() { 
-	logger("updateGPIOState","info")
-	def stamp = new Date().format('yyyy-M-d hh:mm:ss',location.timeZone)
-	logger("Updating GPIO map at " + stamp,"trace")
-	
-	executeRequest("/*", "GET", false, null, true);
+
+    logger("updateGPIOState","info")
+    def stamp = new Date().format('yyyy-M-d hh:mm:ss',location.timeZone)
+    //log.trace "Updating GPIO map at " + stamp
+    logger("Updating GPIO map at " + stamp,"trace")
     
-    //runIn(piPolling, updateGPIOState);
+    executeRequest("/*", "GET", false, null, true);
+    
+    runIn(piPolling, updateGPIOState);
 }
 
 def switchChange(evt){
 
-	logger("Switch event!","debug")
+    //log.debug "Switch event!";
+    //log.debug evt.value;
+    logger("Switch event!","debug")
 	logger(evt.value,"debug")
     if(evt.value == "on" || evt.value == "off") return;    
-	
+    
     
     def parts = evt.value.tokenize('.');
     def deviceId = parts[1];
     def GPIO = parts[5];
     def state = parts[6];
     
-	logger(state,"debug")
+    //log.debug state;
+    logger(state,"debug")
     
     switch(state){
-    	case "refresh":
+        case "refresh":
         // Refresh this switches button
-		logger("Refreshing the state of GPIO " + GPIO,"debug")
+        //log.debug "Refreshing the state of GPIO " + GPIO
+        logger("Refreshing the state of GPIO " + GPIO,"debug")
         executeRequest("/*", "GET", false, null, true)
         return;        
     }
@@ -416,22 +498,26 @@ def switchChange(evt){
 }
 def contactChange(evt){
 
-		logger("Contact event!","debug")
-		logger(evt.value,"debug")
+    //log.debug "Contact event!";
+    //log.debug evt.value;
+    logger("Contact event!","debug")
+	logger(evt.value,"debug")
     if(evt.value == "closed" || evt.value == "open") return;    
-	
+    
     
     def parts = evt.value.tokenize('.');
     def deviceId = parts[1];
     def GPIO = parts[5];
     def state = parts[6];
     
-	logger(state,"debug")
+    //log.debug state;
+    logger(state,"debug")
     
     switch(state){
-    	case "refresh":
+        case "refresh":
         // Refresh this switches button
-		logger("Refreshing the state of GPIO " + GPIO,"debug")
+        //log.debug "Refreshing the state of GPIO " + GPIO
+        logger("Refreshing the state of GPIO " + GPIO,"debug")
         executeRequest("/*", "GET", false, null, true)
         return;        
     }
@@ -443,50 +529,55 @@ def contactChange(evt){
 
 
 def setSwitchState(gpio, state, PostactualAction) {
-	logger("Executing 'setSwitchState'","debug")
+    //log.debug "Executing 'setSwitchState'"
+    logger("Executing 'setSwitchState'","debug")
      
     // Determine the path to post which will set the switch to the desired state
     def Path = "/GPIO/" + gpio + "/value/";
-	Path += (state == "on") ? "1" : "0";
+    Path += (state == "on") ? "1" : "0";
     
     executeRequest(Path, "POST", "OUT", gpio, PostactualAction);
 }
 
 def setContactState(gpio, state, PostactualAction) {
-	logger("Executing 'setContactState'","debug")
-
+    //log.debug "Executing 'setContactState'"
+    logger("Executing 'setContactState'","debug")
+     
     // Determine the path to post which will set the switch to the desired state
     def Path = "/GPIO/" + gpio + "/value/";
-	Path += (state == "on") ? "1" : "0";
+    Path += (state == "on") ? "1" : "0";
     
     executeRequest(Path, "POST", "IN", gpio, PostactualAction);
 }
 
 def executeRequest(Path, method, setGPIODirection, gpioPin, PostactualAction) {
-		   
-	logger("The " + method + " path is: " + Path,"debug")
-	    
+           
+    //log.debug "The " + method + " path is: " + Path;
+    logger("The " + method + " path is: " + Path,"debug")
+        
     def headers = [:] 
     headers.put("HOST", "$settings.piIP:$settings.piPort")
     def decoded="$settings.piUser:$settings.piPsswd"
     def encoded = "Basic "+decoded.bytes.encodeBase64()  
     headers.put("Authorization",encoded)
     
-    try {    	
+    try {       
         if(setGPIODirection == "OUT") {
-        	def setDirection = new physicalgraph.device.HubAction(
-            	method: "POST",
-            	path: "/GPIO/" + gpioPin  + "/function/OUT",
-            	headers: headers)
-			logger("POSTing OUT","trace")
-        	sendHubCommand(setDirection);
+            def setDirection = new physicalgraph.device.HubAction(
+                method: "POST",
+                path: "/GPIO/" + gpioPin  + "/function/OUT",
+                headers: headers)
+            //log.trace "POSTing OUT"
+            logger("POSTing OUT","trace")
+            sendHubCommand(setDirection);
         } else if(setGPIODirection == "IN") {
-        	def setDirection = new physicalgraph.device.HubAction(
-            	method: "POST",
-            	path: "/GPIO/" + gpioPin  + "/function/IN",
-            	headers: headers)
-				logger("POSTing IN","trace")
-        	sendHubCommand(setDirection);
+            def setDirection = new physicalgraph.device.HubAction(
+                method: "POST",
+                path: "/GPIO/" + gpioPin  + "/function/IN",
+                headers: headers)
+            //log.trace "POSTing IN"
+            logger("POSTing IN","trace")
+            sendHubCommand(setDirection);
         }
         
         def actualAction = new physicalgraph.device.HubAction(
@@ -497,7 +588,8 @@ def executeRequest(Path, method, setGPIODirection, gpioPin, PostactualAction) {
         sendHubCommand(actualAction)        
     }
     catch (Exception e) {
-		logger("Hit Exception $e on $hubAction","warn")
+        //log.debug "Hit Exception $e on $hubAction"
+        logger("Hit Exception $e on $hubAction","warn")
     }
 }
 
@@ -510,16 +602,19 @@ private String NetworkDeviceId(){
 
 private String convertIPtoHex(ipAddress) { 
     String hex = ipAddress.tokenize( '.' ).collect {  String.format( '%02x', it.toInteger() ) }.join()
-	logger("IP address entered is $ipAddress and the converted hex code is $hex","debug")
+    //log.debug "IP address entered is $ipAddress and the converted hex code is $hex"
+    logger("IP address entered is $ipAddress and the converted hex code is $hex","debug")
     return hex
 
 }
 
 private String convertPortToHex(port) {
     String hexport = port.toString().format( '%04x', port.toInteger() )
-	logger("hexport:$hexport","debug")
+    //log.debug hexport
+    logger("hexport:$hexport","debug")
     return hexport
 }
+
 /**
  *  logger()
  *
